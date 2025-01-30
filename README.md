@@ -1,4 +1,4 @@
-# CS-475 Senior_Project
+# CS-475 Senior Project
 
 ## What is a Security Operations Team (SOC)?
 
