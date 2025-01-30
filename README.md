@@ -11,7 +11,7 @@ This project aims to address the complexities of implementing a virtualized SOC 
 The project scope involved selecting the virtualization software and operating system (OS), identifying the SOC infrstructure's components, creating a detailed design of our virtualized SOC, authomating and integrating the SOC components after installation, implementing best security practices and VM hrdening, and isolation of SOC components through virtual networking and VM hardening.
 
 ## **Resource Requirements**
-• Bash: Automating system configurations and OS integration, especially for Linux-based VMs.
+\• Bash: Automating system configurations and OS integration, especially for Linux-based VMs.
 • Python: Setting up firewalls, IDS/IPS systems, and log management solutions.
 • Virtualization Software: VMware or VirtualBox for hosting the virtual machine.
 • Operating System: Linux-based OS (Ubuntu Server or Debian) due to its open-source nature.
