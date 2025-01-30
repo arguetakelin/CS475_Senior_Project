@@ -1,6 +1,6 @@
 # CS475_Senior_Project
 
-# What is a Security Operations Team (SOC)?
+## What is a Security Operations Team (SOC)?
 
 A Security Operations Team is a team of experts or a function that monitors an organizations operations, infrastructure, and security compoetence. SOCs have a variety of beneficial and secure mechanisms that allow them to protect an organization from cyberattacks from spreading throughout a SOC.
 
