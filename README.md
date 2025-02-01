@@ -24,7 +24,7 @@ The project scope involved selecting the virtualization software and operating s
 
 • Programming Languages: Python, Bash
 
-• Systems: VMware or VirtualBox, ELK Stack, Grafana, Metasploit, Zabbix
+• Systems: VMware, ELK Stack, Grafana, Metasploit, Zabbix, Fluentd, Greylog
 
 • Project Management Tools: Trello or Asana for task management and collaboration
 
