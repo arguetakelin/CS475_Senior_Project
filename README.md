@@ -12,16 +12,22 @@ The project scope involved selecting the virtualization software and operating s
 
 ## **Resource Requirements**
 
-\ • Bash: Automating system configurations and OS integration, especially for Linux-based VMs.
-\ • Python: Setting up firewalls, IDS/IPS systems, and log management solutions.
-\ • Virtualization Software: VMware or VirtualBox for hosting the virtual machine.
-\ • Operating System: Linux-based OS (Ubuntu Server or Debian) due to its open-source nature.
+• Bash: Automating system configurations and OS integration, especially for Linux-based VMs.
+
+• Python: Setting up firewalls, IDS/IPS systems, and log management solutions.
+
+• Virtualization Software: VMware or VirtualBox for hosting the virtual machine.
+
+• Operating System: Linux-based OS (Ubuntu Server or Debian) due to its open-source nature.
 
 ## **Tools**
 
 • Programming Languages: Python, Bash
+
 • Systems: VMware or VirtualBox, ELK Stack, Grafana, Metasploit, Zabbix
+
 • Project Management Tools: Trello or Asana for task management and collaboration
+
 • OS: Ubuntu Server or Debian
 
 ## **Processes**
@@ -32,6 +38,9 @@ in adapting the project based on student and faculty input.
 ## **Expected Deliverables**
 
 • A fully functional vSOC environment with integrated tools for monitoring and incident response.
+
 • Documentation outlining the setup process, tool configurations, and user guides.
+
 • Case studies and training scenarios for student use.
+
 • A report assessing the effectiveness of the vSOC as a training tool.
