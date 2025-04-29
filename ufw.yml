@@ -1,0 +1,55 @@
+- name: Install and configure UFW with custom rules
+  hosts: localhost
+  become: yes
+  tasks:
+    - name: Ensure UFW is installed
+      apt:
+        name: ufw
+        state: present
+
+    - name: Set default policies for UFW
+      ufw:
+        default: "{{ item.policy }}"
+        direction: "{{ item.direction }}"
+      loop:
+        - { policy: 'deny', direction: 'incoming' }
+        - { policy: 'allow', direction: 'outgoing' }
+        - { policy: 'deny', direction: 'routed' }
+
+    - name: Enable UFW logging
+      ufw:
+        logging: 'on'
+
+    - name: Allow specific ports in UFW
+      ufw:
+        rule: allow
+        name: "{{ item }}"
+      loop:
+        - '9200/tcp'
+        - '9300/tcp'
+        - '5000/tcp'
+        - '5044/tcp'
+        - '9600/tcp'
+        - '5601/tcp'
+        - '514/tcp'
+        - '601/tcp'
+        - '6514/tcp'
+        - '514/udp'
+        - '24224/tcp'
+        - '24220/tcp'
+        - '5666/tcp'
+        - '80/tcp'
+        - '443/tcp'
+        - '3000/tcp'
+
+    - name: Allow traffic from eth1 interface
+      ufw:
+        rule: allow
+        from: 'anywhere'
+        to: 'anywhere'
+        interface: 'eth1'
+     
+    - name: Enable UFW
+      ufw:
+        state: enabled
+        enabled: yes
