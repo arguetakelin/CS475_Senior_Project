@@ -1,0 +1,105 @@
+---
+- name: Install and configure ELK Stack
+  hosts: all
+  become: true
+  vars:
+    elasticsearch_version: "8.6.0"
+    kibana_version: "8.6.0"
+    logstash_version: "8.6.0"
+
+  tasks:
+    # Install dependencies
+    - name: Install required packages
+      apt:
+        name:
+          - apt-transport-https
+          - curl
+          - gnupg
+        state: present
+        update_cache: yes
+
+    # Add Elasticsearch GPG key
+    - name: Add Elasticsearch GPG key
+      apt_key:
+        url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+        state: present
+
+    # Add Elasticsearch repository
+    - name: Add Elasticsearch APT repository
+      apt_repository:
+        repo: "deb https://artifacts.elastic.co/packages/8.x/apt stable main"
+        state: present
+
+    # Install Elasticsearch
+    - name: Install Elasticsearch
+      apt:
+        name: elasticsearch
+        state: present
+        update_cache: yes
+
+    # Start and enable Elasticsearch
+    - name: Ensure Elasticsearch is running and enabled
+      systemd:
+        name: elasticsearch
+        state: started
+        enabled: true
+
+    # Add Logstash GPG key
+    - name: Add Logstash GPG key
+      apt_key:
+        url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+        state: present
+
+    # Add Logstash repository
+    - name: Add Logstash APT repository
+      apt_repository:
+        repo: "deb https://artifacts.elastic.co/packages/8.x/apt stable main"
+        state: present
+
+    # Install Logstash
+    - name: Install Logstash
+      apt:
+        name: logstash
+        state: present
+        update_cache: yes
+
+    # Start and enable Logstash
+    - name: Ensure Logstash is running and enabled
+      systemd:
+        name: logstash
+        state: started
+        enabled: true
+
+    # Add Kibana GPG key
+    - name: Add Kibana GPG key
+      apt_key:
+        url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+        state: present
+
+    # Add Kibana repository
+    - name: Add Kibana APT repository
+      apt_repository:
+        repo: "deb https://artifacts.elastic.co/packages/8.x/apt stable main"
+        state: present
+
+    # Install Kibana
+    - name: Install Kibana
+      apt:
+        name: kibana
+        state: present
+        update_cache: yes
+
+      # Start and enable Kibana
+
+    - name: Ensure Kibana is running and enabled
+      systemd:
+        name: kibana
+        state: started
+        enabled: true
+
+    # Open Kibana port in firewall
+    - name: Open Kibana port in firewall
+      ufw:
+        rule: allow
+        port: 5601
+        proto: tcp
