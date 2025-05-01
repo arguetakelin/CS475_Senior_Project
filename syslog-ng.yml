@@ -1,0 +1,93 @@
+---
+- name: Install and configure syslog-ng on Ubuntu 24.04
+  hosts: all
+  become: yes
+  tasks:
+
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install syslog-ng
+      apt:
+        name: syslog-ng
+        state: present
+
+    - name: Backup existing syslog-ng.conf if it exists
+      copy:
+        src: /etc/syslog-ng/syslog-ng.conf
+        dest: /etc/syslog-ng/syslog-ng.conf.bak
+        remote_src: yes
+      ignore_errors: yes
+
+    - name: Deploy custom syslog-ng configuration
+      copy:
+        dest: /etc/syslog-ng/syslog-ng.conf
+        content: |
+          @version: 3.38
+          @include "scl.conf"
+
+          options {
+              chain-hostnames(no);
+              flush-lines(0);
+              use-dns(no);
+              use-fqdn(no);
+              owner("root");
+              group("adm");
+              perm(0640);
+              stats_freq(0);
+              bad_hostname("^gconfd$");
+          };
+
+          source s_src {
+              system();
+              internal();
+          };
+
+          source s_snort {
+              file("/var/log/snort/snort.log"
+                  follow_freq(1)
+                  flags(no-parse));
+          };
+
+          source s_nagios {
+              file("/var/log/nagios/nagios.log"
+                  follow_freq(1)
+                  flags(no-parse));
+          };
+
+          source s_ufw {
+              file("/var/log/ufw.log"
+                  follow_freq(1)
+                  flags(no-parse));
+          };
+
+          destination d_fluentd {
+              tcp("127.0.0.1" port(5140));
+          };
+
+          log {
+              source(s_snort);
+              destination(d_fluentd);
+          };
+
+          log {
+              source(s_nagios);
+              destination(d_fluentd);
+          };
+
+          log {
+              source(s_ufw);
+              destination(d_fluentd);
+          };
+
+          log {
+              source(s_src);
+              destination(d_fluentd);
+          };
+
+    - name: Ensure syslog-ng service is restarted
+      systemd:
+        name: syslog-ng
+        state: restarted
+        enabled: yes
